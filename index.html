@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<head>
+<script>
+function Generating_Function() {
+    var i;
+    var temp="";
+	var x= document.getElementById("frm");
+    var port=document.getElementById("portid").value;
+    var txtOutput = document.getElementById("txtOutput");
+    var dp_id=x.elements[0].value
+    var name=x.elements[1].value
+    var hardware=x.elements[2].value
+    for(i=1;i<=port;i++){
+        var j=document.getElementById("port_" + i).value;
+        temp +="\r\n"+" "+i+":"+"\r\n"+"  native_vlan:"+j;
+    }
+    txtOutput.value ="---"+"\r\n"+ "dp_id: " + dp_id+"\r\n" +"name: " + "\""+name+"\""+"\r\n"+"hardware: "+ "\"" + hardware + "\""+"\r\n"+"interfaces:"+temp;
+}
+
+function SpawnPorts(){
+	var port=document.getElementById("portid").value;
+	var txtOutput = document.getElementById("txtOutput");
+    var count = 0;
+	var text= "";
+    console.log("Spawn Ports");
+    for (count=1;count<=port;count++){
+    text += "Port "+ count + "<input type='text' id='port_" + count +"'></input></br>";
+    }
+    console.log(text);
+    document.getElementById("num_of_switch").innerHTML = text;
+}
+</script>
+	<title>HomePage</title>
+	<style>
+header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px; 
+}
+nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:600px;
+    width:650px;
+    float:left;
+    padding:5px; 
+}
+section {
+    line-height:30px;
+    background-color:#dddddd;
+    height:600px;
+    width:650px;
+    float:left;
+    padding:10px; 
+}
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>Faucet Controller Configuration</h1>
+</header>
+
+<nav>
+<form id="frm" >
+  DP ID : <input id="txt1" type="text" name="DPID"><br>
+  Switch Name: <input type="text" name="Switch"><br>
+  Hardware: <select id="mySelect">
+  <option>Allied-Telesis</option>
+  <option>Aruba</option>
+  <option>NoviFlow</option>
+  <option>Open Vswitch</option>
+  <option>ZodiacFX</option>
+  </select><br>
+  
+</form>  
+
+No of Ports: <input type="text" name="PorrtNo" id="portid"><br>
+<button onclick="SpawnPorts()" >Spawn</button>
+
+<p id="num_of_switch">
+    
+</p>
+<button onclick="Generating_Function()" >Generate</button><br><br>
+</nav>
+
+<section>
+<h1>YAML File</h1>
+<textarea rows="20" cols="50" id = "txtOutput" />
+</textarea>
+<p id="demo">
+</p>
+<br>
+</section>
+
+<footer>
+Open Networking Foundation
+</footer>
+</body>
